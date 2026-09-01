@@ -97,26 +97,16 @@ persistence and spike, `vessel_score`), a `classification_reason` string, and th
 ![Temporal brightness spike by class](results/temporal_spike_evidence.png)
 ![Sample scene classification map](results/sample_classification_map.png)
 
-## 4. Limitations
-
-The static-object and vessel-evidence thresholds are calibrated on development scenes
-only, against AIS as a proxy for ground truth — they have not been checked against
-independently verified, manually annotated labels for the final three-class scheme.
-AIS association quality is bounded by the temporal resolution of the underlying hourly
-presence data, and can be ambiguous in dense-traffic anchorages. Thresholds were
-derived for this AOI, sensor geometry, and orbit configuration, and are not expected to
-transfer to other regions without recalibration. Objects near the decision boundary are
-flagged rather than resolved with additional confidence.
-
-## 5. Repository organization
+## 4. Repository organization
 
 `01_model_training/` trains the two detectors in Colab. `02_detection_pipeline/` runs
 detection, feature extraction, and AIS matching on Kaggle, producing an object table
 with a first-pass 5-class label. `03_final_classification/` re-derives the final three
 classes from that table using the VV/VH time-series method above — as a Kaggle
-notebook, or as `scripts/run_vv_vh_3class_local.py` for a local run against a cached
-VV/VH scene array (set `SAR_PROJECT_ROOT` to point at your working directory).
-`models/` holds the frozen detector weights; `results/` holds the output above.
+notebook, or locally via `scripts/run_vv_vh_3class_local.py` (`pip install -r
+scripts/requirements.txt`) against a cached VV/VH scene array, with `SAR_PROJECT_ROOT`
+set to your working directory. `models/` holds the frozen detector weights; `results/`
+holds the output above.
 
 ## References
 
