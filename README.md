@@ -112,6 +112,11 @@ Development scenes, 11,914 objects, run 2026-08-31:
 Model quality (cross-validated against known AIS vessels): **95.0% recall**, 94.0%
 balanced accuracy, calibrated vessel-score threshold **0.40**.
 
+**[`results/FINAL_3CLASS_OBJECTS.csv`](results/FINAL_3CLASS_OBJECTS.csv)** is the actual
+deliverable: all 11,914 objects, one row each, with `final_class_3` plus every piece of
+evidence behind it — position, geometry, VV/VH contrast, temporal persistence/spike,
+`vessel_score`, a plain-language `classification_reason`, and the QA `review_flag`.
+
 <table>
 <tr>
 <td><img src="results/class_distribution.png" width="420"><br><sub>Final 3-class distribution</sub></td>
@@ -144,6 +149,7 @@ SAR-Ship-Detection/
 │   ├── E0_YOLO11s_SSDD_Baseline.pt
 │   └── E1_YOLO11s_SSDD_SensorMix.pt
 └── results/
+    ├── FINAL_3CLASS_OBJECTS.csv       - the deliverable: every object, final class + evidence
     ├── class_distribution.png
     ├── vv_vh_contrast_evidence.png
     ├── temporal_spike_evidence.png
