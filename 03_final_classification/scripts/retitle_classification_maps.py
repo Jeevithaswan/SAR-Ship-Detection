@@ -11,6 +11,7 @@ differ from the background color - robust to any small variation in how
 each figure was originally rendered, without touching the classification
 data itself.
 """
+import os
 import re
 from pathlib import Path
 from datetime import datetime
@@ -18,7 +19,9 @@ from datetime import datetime
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-ROOT = Path(r"c:\Users\Jeevitha.Balaraman\OneDrive - Swan Corp\Documents\Jeevi\SHIP DETECTION")
+# Edit this, or set the SAR_PROJECT_ROOT environment variable, to point at
+# your own working project folder (see the main README).
+ROOT = Path(os.environ.get("SAR_PROJECT_ROOT", ".")).resolve()
 
 TARGETS = [
     (ROOT / "SAR_Ship_Project_V4_1_VV_VH_3CLASS_RESULTS" / "FIGURES" / "final_3class_overlays", "Final Ship Classification"),
@@ -28,7 +31,17 @@ TARGETS = [
 ]
 
 SCENE_DATE_RE = re.compile(r'(S\d+)_(\d{8})')
-FONT_PATH_BOLD = r"C:\Windows\Fonts\segoeuib.ttf"
+
+# A bold sans-serif truetype font. Tries common Windows/macOS/Linux locations
+# in order; falls back to PIL's bundled default (much lower quality, but the
+# script still runs) if none are found.
+_FONT_CANDIDATES = [
+    r"C:\Windows\Fonts\segoeuib.ttf",       # Windows
+    r"C:\Windows\Fonts\arialbd.ttf",        # Windows fallback
+    "/System/Library/Fonts/Supplemental/Arial Bold.ttf",  # macOS
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",  # Linux
+]
+FONT_PATH_BOLD = next((p for p in _FONT_CANDIDATES if os.path.exists(p)), None)
 
 
 def format_date(datestr):
@@ -63,7 +76,11 @@ def retitle(path: Path, heading: str):
 
     # size the font to the image width, then center the title in the band
     font_size = max(14, min(30, im.width // 68))
-    font = ImageFont.truetype(FONT_PATH_BOLD, font_size)
+    if FONT_PATH_BOLD:
+        font = ImageFont.truetype(FONT_PATH_BOLD, font_size)
+    else:
+        print('  WARNING: no bold truetype font found on this system, using PIL default (lower quality).')
+        font = ImageFont.load_default(size=font_size)
     bbox = draw.textbbox((0, 0), title_text, font=font)
     text_w, text_h = bbox[2] - bbox[0], bbox[3] - bbox[1]
     x = (im.width - text_w) // 2

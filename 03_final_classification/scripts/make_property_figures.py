@@ -7,6 +7,7 @@ but for the new 3-class scheme, plus new figures that show *why* the VV/VH
 time-series evidence separated static objects from vessels.
 """
 import json
+import os
 from pathlib import Path
 
 import numpy as np
@@ -17,7 +18,9 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 
-ROOT = Path(r"c:\Users\Jeevitha.Balaraman\OneDrive - Swan Corp\Documents\Jeevi\SHIP DETECTION")
+# Edit this, or set the SAR_PROJECT_ROOT environment variable, to point at
+# your own working project folder (see the main README).
+ROOT = Path(os.environ.get("SAR_PROJECT_ROOT", ".")).resolve()
 RESULTS_DIR = ROOT / "SAR_Ship_Project_V4_1_VV_VH_3CLASS_RESULTS"
 OUT_DIR = RESULTS_DIR / "FIGURES" / "target_property_plots"
 OUT_DIR.mkdir(parents=True, exist_ok=True)

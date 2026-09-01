@@ -39,7 +39,13 @@ warnings.filterwarnings('ignore')
 pd.set_option('display.max_columns', 200)
 pd.set_option('display.width', 180)
 
-ROOT = Path(r"c:\Users\Jeevitha.Balaraman\OneDrive - Swan Corp\Documents\Jeevi\SHIP DETECTION")
+# =============================
+# USER CONFIGURATION - edit this, or set the SAR_PROJECT_ROOT environment
+# variable, to point at your own working project folder (the one containing
+# the v4_1 results export and the KAGGLE RESULTS/.../scene_crops cache -
+# see the main README for exactly what's expected under each).
+# =============================
+ROOT = Path(os.environ.get("SAR_PROJECT_ROOT", ".")).resolve()
 DET_CSV = ROOT / "SAR_Ship_Project_V4_1_RESULTS_WITH_FIGURES" / "FINAL_EXPORT" / "FINAL_CLASSIFIED_SAR_CANDIDATES.csv"
 SCENE_CROP_DIR = ROOT / "KAGGLE RESULTS" / "SAR_Ship_Project_FULL" / "SAR_Ship_Project" / "results_v3" / "scene_crops"
 OUTPUT_DIR = ROOT / "SAR_Ship_Project_V4_1_VV_VH_3CLASS_RESULTS"
