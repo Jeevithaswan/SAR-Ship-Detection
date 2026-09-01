@@ -1,0 +1,16 @@
+# Notebook / Python noise
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+
+# Never accidentally commit raw data or bulky regenerable outputs here
+*.rar
+*.zip
+*.SAFE/
+*_VVVH.npz
+*.npz
+Official_SSDD/
+SL-SSDD-main/
+KAGGLE RESULTS/

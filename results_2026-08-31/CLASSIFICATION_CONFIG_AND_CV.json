@@ -1,0 +1,48 @@
+{
+  "cluster_eps_m": 30.0,
+  "target_radius_m": 25.0,
+  "bg_inner_radius_m": 60.0,
+  "bg_outer_radius_m": 120.0,
+  "min_vessel_contrast_db": 2.0,
+  "ais_contrast_quantile": 0.1,
+  "static_bright_persistence": 0.82,
+  "static_position_std_m": 20.0,
+  "static_rel_mad_max": 0.3,
+  "target_ais_recall": 0.95,
+  "final_vessel_threshold": 0.3999999999999999,
+  "cv": {
+    "threshold": 0.3999999999999999,
+    "oof_ais_recall": 0.9503016374604999,
+    "oof_balanced_accuracy": 0.939863737390537,
+    "oof_confusion_matrix": [
+      [
+        1554,
+        118
+      ],
+      [
+        173,
+        3308
+      ]
+    ],
+    "n_positive_anchors": 3481,
+    "n_negative_anchors": 1672,
+    "features": [
+      "vv_contrast_db",
+      "vh_contrast_db",
+      "combined_contrast_db",
+      "vv_minus_vh_peak_db",
+      "temporal_spike_db",
+      "bright_persistence",
+      "detection_persistence",
+      "position_std_m",
+      "ts_relative_mad",
+      "major_m",
+      "minor_m",
+      "area_m2",
+      "aspect_ratio",
+      "confidence",
+      "water_fraction",
+      "distance_to_land_m"
+    ]
+  }
+}
